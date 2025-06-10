@@ -1,8 +1,6 @@
 **GymLang**
 
-Overview
-================
-
+# Overview
 GymLang is a domain-specific language (DSL) designed to structure and plan weight-training workout programs in a human-readable and programmable format. It allows fitness enthusiasts, trainers, and software systems to:
 
 - Define muscles and their corresponding workout routines
@@ -12,12 +10,14 @@ GymLang is a domain-specific language (DSL) designed to structure and plan weigh
 
 This system is particularly valuable for users who want to automate checks for overtraining, missing muscle targets, or undefined behaviors in a workout program.
 
-Application Example
-===================
+Author: Minsik Lee
+
+# Application Example
+
 
 Consider the following example:
 
-~~~~~
+```
 MuscleGroup {
     Chest, Back, Shoulders, Biceps, Triceps, Legs
 }
@@ -92,10 +92,10 @@ start program HypertrophyBoost
     }
 
 end
-~~~~~
+```
 
 **Output**
-~~~~~
+```
 Workout Volume Summary:
 Chest: 2800 total volume
 Legs: 5880 total volume
@@ -119,11 +119,11 @@ LegDay:
 [Volume too high]: Back 3120 (goal: 3000)
 [Volume too high]: Triceps 4000 (goal: 1600)
 [Volume too high]: Biceps 2820 (goal: 1600)
-~~~~~
+```
 The program calculates the total volume for each muscle group and alerts the user if a volume exceeds the defined goal. It also validates routine definitions and structure.
 
-Grammar
-=============
+# Grammar
+
 A GymLang program consists of three major declarations followed by a program definition.
 
 ### 1. `MuscleGroup` Declaration
@@ -198,17 +198,11 @@ A GymLang program consists of three major declarations followed by a program def
 
 
 
-Author
-=============
 
-David Lee
+# Implementations
 
-Implementations
-================
-
-Correct Input
---------------------------------
-~~~~~
+## Correct Input
+```
 MuscleGroup {
     Chest, Triceps, Biceps, Shoulders, Back, Legs, Abs
 }
@@ -273,10 +267,10 @@ start program MuscleGrowth
     }
     
 end
-~~~~~
+```
 
 **Output**
-~~~~~~
+```
 Workout Volume Summary:
 Chest: 5600 total volume
 Legs: 1520 total volume
@@ -290,28 +284,27 @@ LegDay:
 [Volume too high]: Chest 5600 (goal: 1000)
 [Volume too high]: Legs 1520 (goal: 1400)
 [Volume too high]: Triceps 5600 (goal: 3000)
+```
 
-~~~~~
+## Incorrect Input
 
-Incorrect Input
---------------------------------
 ### Duplicate Muscle Group
-~~~~~
+```
 MuscleGroup {
     Chest, Chest, Triceps, Biceps, Shoulders, Back, Legs, Abs //Chest defined twice
 }
-~~~~~
+```
 **Output**
-~~~~~
+```
 FAIL: Error while parsing test.txt
 java.lang.RuntimeException: Error: Duplicate muscle group detected - 'Chest'
         at customVisitor.visitMuscleList(customVisitor.java:53)
         at customVisitor.visitMuscleList(customVisitor.java:9)
         at GymlangParser$MuscleListContext.accept(GymlangParser.java:278)
 
-~~~~~
+```
 ### Negative Weight or reps
-~~~~~
+```
 defineSet Pyramid(weight, reps) {
     Set(weight, reps)
     Set(weight + 20, reps - 50) // reps subtracted too much
@@ -319,15 +312,15 @@ defineSet Pyramid(weight, reps) {
 ...
 Well.InclineDumbbellPress rest 2minutes:
              use Set.Pyramid(70,12):
-~~~~~
+```
 **Output**
-~~~~~
+```
 java.lang.RuntimeException: Error: weight or rap goes below zero at Pyramid
 ...
-~~~~~
+```
 ### Undefined Muscle Group
 1. Muscle group not found in **program** definition
-~~~~~
+```
 MuscleGroup {
     Chest, Triceps, Biceps, Shoulders, Back, Legs, Abs
 }
@@ -347,12 +340,12 @@ start program MuscleGrowth
     Legs volume = 1400
     Tricepts volume = 3000      // Typo in Tricepts
 ...
-~~~~~
+```
 **Output**
 ![Output](assets/undefinedMuscleGroup.png)
 
 2. Muscle group not found in **library** definition
-~~~~~
+```
 MuscleGroup {
     Legs
 }
@@ -361,12 +354,12 @@ Gym Well {
     FrontSquat(Leggs)
 }
 ...
-~~~~~
+```
 **Output**
 `java.lang.RuntimeException: Error: Undefined muscle group 'Leggs' in exercise 'FrontSquat'`
 
 ### Undefined Exercise
-~~~~~
+```
 MuscleGroup {
     Chest, Triceps, Biceps, Shoulders, Back, Legs, Abs
 }
@@ -391,7 +384,7 @@ start program MuscleGrowth
             Set(120, 6)
             Set(100, 8)
     }
-~~~~~
+```
 
 **Output:**
 ![Output](assets/undefinedExercise.png)
@@ -399,34 +392,34 @@ start program MuscleGrowth
 
 ### Goal Undefined
 1. timePerSession
-~~~~~
+```
 start program MuscleGrowth
     
     // Missing time per session
     daysPerWeek = 4
-~~~~~
+```
 
 **Output:**
 
-~~~~~
+```
 java.lang.RuntimeException: Syntax Error: Expected 'timePerSession = number' but found 'null'
-~~~~~
+```
 2. daysPerWeek
-~~~~~
+```
 start program MuscleGrowth
     
     timePerSession = 100
     // Missing days per week
-~~~~~
+```
 
 **Output:**
-~~~~~
+```
 java.lang.RuntimeException: Syntax Error: Expected 'daysPerWeek = number' but found 'null'
-~~~~~
+```
 
 
 3. Volume Goal
-~~~~~
+```
 ...
 start program MuscleGrowth
     
@@ -442,7 +435,7 @@ start program MuscleGrowth
              Set(100, 12)
              Set(120, 8)
              Set(100, 6)
-~~~~~
+```
 
 **Output:**
 Prints warning:
@@ -450,12 +443,12 @@ Prints warning:
 ![Output](assets/undefinedVolumeGoal.png)
 
 ### Gym library not imported
-~~~~~
+```
 ArmDay {
     BarbellCurl rest 2minutes: // Missing well.
         Set(30,12)
 }
-~~~~~
+```
 
 **Output:**
 Prints warning:
@@ -463,7 +456,7 @@ Prints warning:
 
 
 ### Day routine not defined
-~~~~~
+```
 start program MuscleGrowth
     
     timePerSession = 100
@@ -486,13 +479,12 @@ start program MuscleGrowth
     }
     
 end
-~~~~~
+```
 
 **Output:**
 `java.lang.RuntimeException: Error: ArmDay is not defined.`
 
-Reflection
-==========
+
 ## Comparsion with General-Purpose Languages and Manual Approaches
 
 Using a general-purpose languages (like Python or Java) or managing workout plans manually can achieve similar outputs,
