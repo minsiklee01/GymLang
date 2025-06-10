@@ -1,0 +1,74 @@
+MuscleGroup {
+    Chest, Back, Shoulders, Biceps, Triceps, Legs
+}
+
+Gym Well {
+    BenchPress(Chest, Triceps),
+    PullUp(Back, Biceps),
+    MilitaryPress(Shoulders, Triceps),
+    BarbellCurl(Biceps),
+    Deadlift(Back, Legs),
+    LegPress(Legs)
+}
+
+defineSet ReversePyramid(weight, reps) {
+    Set(weight, reps)
+    Set(weight - 20, reps + 2)
+    Set(weight - 40, reps + 4)
+}
+
+defineSet Pyramid(weight, reps) {
+    Set(weight, reps)
+    Set(weight + 20, reps - 2)
+    Set(weight + 40, reps - 4)
+    Set(weight - 10, reps + 2)
+    Set(weight - 20, reps + 4)
+}
+
+start program HypertrophyBoost
+
+    timePerSession = 90
+    daysPerWeek = 5
+
+    Chest volume = 2400
+    Back volume = 3000
+    Legs volume = 2800
+    Shoulders volume = 1800
+    Biceps volume = 1600
+    Triceps volume = 1600
+
+    PushDay {
+        Well.BenchPress rest 3minutes:
+            use Set.ReversePyramid(100, 10)
+
+        Well.MilitaryPress rest 2minutes:
+            Set(60, 10)
+            Set(50, 12)
+    }
+
+    PullDay {
+        Well.PullUp rest 2minutes:
+            Set(60, 12)
+            Set(60, 10)
+
+        Well.BarbellCurl rest 2minutes:
+            use Set.Pyramid(30, 10)
+    }
+
+    LegDay {
+        Well.Deadlift rest 4minutes:
+            Set(140, 6)
+            Set(120, 8)
+
+        Well.LegPress rest 2minutes:
+            Set(180, 12)
+            Set(160, 12)
+    }
+
+    Week {
+        PushDay,
+        PullDay,
+        LegDay
+    }
+
+end

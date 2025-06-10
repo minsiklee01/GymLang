@@ -1,0 +1,29 @@
+start program muscleGrowth
+    
+    timePerSession = 100
+    daysPerWeek = 4
+    
+    Chest volume = 1000
+    Legs volume = 1400
+    
+    ChestDay {
+         Well.BenchPress rest 3minutes:
+             Set(100, 12)
+             Set(120, 8)
+             Set(100, 6)
+             
+         Well.InclineDumbbellPress 2min rest:
+             use Set.Pyramid_set:
+                 - Set 1
+                 change Set2 to Set(50, 8)
+                 + Set(70, 8)
+    }
+
+    Week 1-4 {
+     Day1 = ChestDay
+     Day2 = LegDay
+     Day3 = ArmsDay
+     Day4 = ChestDay2
+    }
+    
+end

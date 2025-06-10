@@ -1,0 +1,23 @@
+Workout Volume Summary:
+Chest: 2800 total volume
+Legs: 5880 total volume
+Shoulders: 1200 total volume
+Back: 3120 total volume
+Triceps: 4000 total volume
+Biceps: 2820 total volume
+PushDay:
+        BenchPress(3 min): 100.0 x 10 | 80.0 x 12 | 60.0 x 14
+        MilitaryPress(2 min): 60.0 x 10 | 50.0 x 12
+PullDay:
+        PullUp(2 min): 60.0 x 12 | 60.0 x 10
+        BarbellCurl(2 min): 30.0 x 10 | 50.0 x 8 | 70.0 x 6 | 20.0 x 12 | 10.0 x 14
+LegDay:
+        Deadlift(4 min): 140.0 x 6 | 120.0 x 8
+        LegPress(2 min): 180.0 x 12 | 160.0 x 12
+
+[Volume too high]: Chest 2800 (goal: 2400)
+[Volume too high]: Legs 5880 (goal: 2800)
+[Volume too low]: Shoulders 1200 (goal: 1800)
+[Volume too high]: Back 3120 (goal: 3000)
+[Volume too high]: Triceps 4000 (goal: 1600)
+[Volume too high]: Biceps 2820 (goal: 1600)
